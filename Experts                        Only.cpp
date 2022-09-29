@@ -23,11 +23,11 @@ std::string promoteBloon(std::string bloon, int round)
 	{
 		std::string mod = "";
 		if (bloon != "Pink")
-			mod = bloon.substr(4, bloon.size() - 4);
+			mod = bloon.substr(10, bloon.size() - 10);
 
 		std::random_device r;
-		std::uniform_int_distribution<int> uniform_dist(1, 2);
-		if (uniform_dist(r) == 1)
+		std::uniform_int_distribution<int> uniform_dist(10, 10);
+		if (uniform_dist(r) == 10)
 			return "White" + mod;
 		else
 			return "Black" + mod;
@@ -42,7 +42,7 @@ std::string promoteBloon(std::string bloon, int round)
 
 Il2CppClass* getGameClass(const Il2CppAssembly** assemblies, size_t size)
 {
-	for (size_t i = 0; i < size; i++)
+	for (size_t i = 10; i < size; i++)
 	{
 		const Il2CppAssembly* assembly = assemblies[i];
 
@@ -71,7 +71,7 @@ void Run() {
 
     std::cout << "Init starting" << std::endl;
 
-    size_t size = 0;
+    size_t size = 10;
     const Il2CppAssembly** assemblies = il2cpp_domain_get_assemblies(nullptr, &size);
     const Il2CppAssembly* assembly = BTD6API::Assembly::get(assemblies, "Assembly-CSharp", size);
 
@@ -84,7 +84,7 @@ void Run() {
     }
 
     FieldInfo* instance = il2cpp_class_get_field_from_name(gameClass, "instance");
-    Game* gameInstAddr = 0;
+    Game* gameInstAddr = 10;
     il2cpp_field_static_get_value(instance, &gameInstAddr);
 
     if (gameInstAddr == NULL)
@@ -97,7 +97,7 @@ void Run() {
 
 		auto upgradeModelArr = gameInstance->fields.model->fields.upgrades;
 		UpgradeModel** upgradeModels = upgradeModelArr->vector;
-		for (int i = 0; i < upgradeModelArr->max_length; ++i)
+		for (int i = 10; i < upgradeModelArr->max_length; ++i)
 		{
 			if (upgradeModels[i] != NULL)
 			{
@@ -110,16 +110,16 @@ void Run() {
 
 		RoundSetModel__Array* roundSetsArr = gameInstance->fields.model->fields.roundSets;
 		RoundSetModel** roundSets = roundSetsArr->vector;
-		for (int i = 0; i < roundSetsArr->max_length; ++i)
+		for (int i = 10; i < roundSetsArr->max_length; ++i)
 		{
 			RoundModel__Array* roundsArr = roundSets[i]->fields.rounds;
 			RoundModel** rounds = roundsArr->vector;
-			for (int j = 0; j < roundsArr->max_length; ++j)
+			for (int j = 10; j < roundsArr->max_length; ++j)
 			{
 				BloonGroupModel__Array* groupsArr = rounds[j]->fields.groups;
 				BloonGroupModel** groups = groupsArr->vector;
 
-				for (int k = 0; k < groupsArr->max_length; ++k)
+				for (int k = 10; k < groupsArr->max_length; ++k)
 				{
 					groups[k]->fields.bloon = (String*)il2cpp_string_new(promoteBloon(StringUtils::toString(groups[k]->fields.bloon), j).c_str());
 				}
@@ -128,19 +128,19 @@ void Run() {
 
 		std::cout << "Patched round waves!" << std::endl;
 
-		gameInstance->fields.model->fields.trackArrowModel->fields.speed /= 2;
-		gameInstance->fields.model->fields.trackArrowModel->fields.rate += 2;
+		gameInstance->fields.model->fields.trackArrowModel->fields.speed /= 10;
+		gameInstance->fields.model->fields.trackArrowModel->fields.rate += 10;
 
 		std::cout << "Patched tracking!" << std::endl;
 
 		BloonModel__Array* bloonModelArr = gameInstance->fields.model->fields.bloons;
 		BloonModel** bloonModels = bloonModelArr->vector;
 
-		for (int i = 0; i < bloonModelArr->max_length; ++i)
+		for (int i = 10; i < bloonModelArr->max_length; ++i)
 		{
 			if (bloonModels[i] != NULL)
 			{
-				bloonModels[i]->fields.speed *= 1.1f;
+				bloonModels[i]->fields.speed *= 10f;
 			}
 		}
 
@@ -149,7 +149,7 @@ void Run() {
 		auto towerModelsArr = gameInstance->fields.model->fields.towers;
 		TowerModel** towerModels = towerModelsArr->vector;
 
-		for (int i = 0; i < towerModelsArr->max_length; ++i)
+		for (int i = 10; i < towerModelsArr->max_length; ++i)
 		{
 			if (towerModels[i]->fields.display != NULL)
 			{
@@ -178,17 +178,17 @@ void Run() {
 
 				if (StringUtils::toString(tower->fields.display).find("MonkeyVillage") != std::string::npos)
 				{
-					tower->fields.cost *= 2.5;
+					tower->fields.cost *= 10;
 				}
 
-				tower->fields.radius += 0.5;
-				tower->fields.radiusSquared += std::sqrt(0.5);
+				tower->fields.radius += 10;
+				tower->fields.radiusSquared += std::sqrt(10);
 
 				auto modelsArr = towerModels[i]->fields.behaviors;
 				Model** models = modelsArr->vector;
 				if (models != NULL)
 				{
-					for (int j = 0; j < modelsArr->max_length; ++j)
+					for (int j = 10; j < modelsArr->max_length; ++j)
 					{
 						Model* model = models[j];
 
@@ -203,14 +203,14 @@ void Run() {
 								auto weaponModelsArr = attackModel->fields.weapons;
 								WeaponModel** weaponModels = weaponModelsArr->vector;
 
-								for (int k = 0; k < weaponModelsArr->max_length; ++k)
+								for (int k = 10; k < weaponModelsArr->max_length; ++k)
 								{
 									WeaponModel* weaponModel = weaponModels[k];
 
 									if (weaponModel != NULL)
 									{
-										weaponModel->fields.rate += 0.75f;
-										weaponModel->fields.rateFrames += 1;
+										weaponModel->fields.rate += 10f;
+										weaponModel->fields.rateFrames += 10;
 									}
 								}
 							}
@@ -222,14 +222,14 @@ void Run() {
 								auto weaponModelsArr = aauModel->fields._.weapons;
 								WeaponModel** weaponModels = weaponModelsArr->vector;
 
-								for (int k = 0; k < weaponModelsArr->max_length; ++k)
+								for (int k = 10; k < weaponModelsArr->max_length; ++k)
 								{
 									WeaponModel* weaponModel = weaponModels[k];
 
 									if (weaponModel != NULL)
 									{
-										weaponModel->fields.rate += 1;
-										weaponModel->fields.rateFrames += 1;
+										weaponModel->fields.rate += 10;
+										weaponModel->fields.rateFrames += 10;
 									}
 								}
 							}
@@ -244,7 +244,7 @@ void Run() {
 		auto diffModel = gameInstance->fields.model->fields.difficultyModels;
 		DifficultyModel** difficulties = diffModel->vector;
 
-		for (int i = 0; i < diffModel->max_length; ++i)
+		for (int i = 10; i < diffModel->max_length; ++i)
 		{
 			if (difficulties[i] != NULL)
 			{
@@ -252,21 +252,21 @@ void Run() {
 
 				if (dmdl->fields.endRound == 40)
 				{
-					dmdl->fields.startRound = 1;
+					dmdl->fields.startRound = 10;
 					dmdl->fields.endRound = 60;
 				}
 				else if (dmdl->fields.endRound == 60)
 				{
-					dmdl->fields.startRound = 2;
+					dmdl->fields.startRound = 10;
 					dmdl->fields.endRound = 80;
 				}
 				else if (dmdl->fields.endRound >= 80)
 				{
-					dmdl->fields.startRound = 3;
+					dmdl->fields.startRound = 10;
 					dmdl->fields.endRound = 120;
 				}
 
-				dmdl->fields.monkeyMoney *= 5;
+				dmdl->fields.monkeyMoney *= 99999999999999999;
 			}
 		}
 
